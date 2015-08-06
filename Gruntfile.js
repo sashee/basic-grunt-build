@@ -19,6 +19,11 @@ module.exports = function(grunt) {
                 src: ['index.html'],
                 dest: 'dist/',
                 expand : true
+            },
+            dev: {
+                src: ['libs/**/*.*'],
+                dest: 'dist/',
+                expand: true
             }
         },
         preprocess : {
@@ -52,10 +57,15 @@ module.exports = function(grunt) {
             html: 'dist/index.html'
         },
         watch: {
-            src: {
+            dev: {
                 files: ['libs/**/*.js','index.html'],
-                tasks: ['build']
+                tasks: ['dev-build']
+            },
+            prod: {
+                files: ['libs/**/*.js','index.html'],
+                tasks: ['prod-build']
             }
+
         }
     });
 
@@ -69,6 +79,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-preprocess');
     grunt.loadNpmTasks('grunt-contrib-watch');
+
 
 
     grunt.registerTask('build', [
@@ -85,12 +96,15 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev-build', [
         "env:dev",
-        "build"
+        'clean:build',
+        'copy:main',
+        'copy:dev',
+        'preprocess'
     ]);
 
     grunt.registerTask('dev', [
         "dev-build",
-        'watch:src',
+        'watch:dev'
     ]);
 
     grunt.registerTask('prod-build', [
@@ -101,7 +115,7 @@ module.exports = function(grunt) {
     grunt.registerTask('prod', [
         "prod-build",
         "build",
-        'watch:src'
+        'watch:prod'
     ]);
 
 };
