@@ -2,7 +2,7 @@
 
 This is a basic grunt build script with some demonstration code. The following functions are configured to the build:
 
-* Minify, concatenate and rev the js and css files
+* Minify, concatenate and rev the js and css files when running on production mode
 * Have the ability to provide custom code to the HTMLs depending on the environment
 * Can watch for changes and rerun the build automatically
 
