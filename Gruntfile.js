@@ -16,9 +16,10 @@ module.exports = function(grunt) {
         },
         copy: {
             main: {
-                src: ['index.html'],
+                src: ['**/*.html'],
                 dest: 'dist/',
-                expand : true
+                expand : true,
+                cwd: 'views/'
             },
             dev: {
                 src: ['libs/**/*.*'],
@@ -35,8 +36,11 @@ module.exports = function(grunt) {
             }
         },
         useminPrepare: {
-            html: 'index.html',
-            dest: 'dist'
+            html: 'views/**/*.html',
+            options:{
+                root:'.',
+                dest: 'dist'
+            }
         },
         filerev:{
             options: {
@@ -54,15 +58,18 @@ module.exports = function(grunt) {
             }
         },
         usemin:{
-            html: 'dist/index.html'
+            html: 'dist/**/*.html',
+            options:{
+                assetsDirs:'dist'
+            }
         },
         watch: {
             dev: {
-                files: ['libs/**/*.js','index.html'],
+                files: ['libs/**/*.js','views/**/*.html'],
                 tasks: ['dev-build']
             },
             prod: {
-                files: ['libs/**/*.js','index.html'],
+                files: ['libs/**/*.js','views/**/*.html'],
                 tasks: ['prod-build']
             }
 
